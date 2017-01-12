@@ -6,8 +6,8 @@ setup(
   description = 'Logpy for centralized logging',
   author = 'Mayur Rastogi',
   author_email = 'rastogi.mayur04@gmail.com',
-  url = 'https://github.com/peterldowns/mypackage', # use the URL to the github repo
-  download_url = 'https://github.com/peterldowns/mypackage/tarball/0.1', # I'll explain this in a second
+  url = 'https://github.com/mayur040993/logpy', # use the URL to the github repo
+  download_url = 'https://github.com/mayur040993/logpy/tarball/0.1', # I'll explain this in a second
   keywords = ['testing', 'logging', 'example'],
   classifiers = [],
 )
