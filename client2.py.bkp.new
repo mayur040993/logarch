@@ -1,0 +1,55 @@
+import socket
+import sys
+import sh
+import json
+import threading
+
+class get_connection(threading.Thread):
+
+    def __init__ (self,logfile,hostname,port):
+        threading.Thread.__init__(self)
+        self.logfile = logfile
+        self.hostname=hostname
+        self.port=port
+
+    def run(self):
+        print self.logfile
+	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	server_address = (self.hostname,self.port)
+	print >>sys.stderr, 'connecting to %s port %s' % server_address
+	sock.connect(server_address)
+	try:
+           for line in sh.tail("-f",self.logfile, _iter=True):
+    	        sock.sendall(line)
+	finally:
+    	   sock.close()
+
+
+def read_from_file():
+    with open('logp.json') as data_file:    
+    	data = json.load(data_file)
+    return data
+
+
+def creating_threads():
+   data=read_from_file()
+   if "port" in data.keys():
+      port=data["port"]
+   else:
+      port=8192
+   if "hostname" in data.keys():
+      hostname=data["hostname"]
+   else:
+      hostname=socket.gethostname()
+   
+   threads = []
+   for logfile in data["logfiles"]:
+       print logfile
+       thread=get_connection(logfile,hostname,port)
+       thread.start()
+       threads.append(thread)
+   for thread in threads:
+       thread.join()
+
+if __name__=="__main__":
+   creating_threads()

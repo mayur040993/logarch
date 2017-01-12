@@ -1,0 +1,15 @@
+{
+	"server_hostname":"localhost",	
+        "hostname":"localhost",
+        "logfiles":[
+			{       
+				"name":"nginx",
+				"filepath":"/var/log/nginx/access.log"
+			},
+			{	
+				"name":"tomcat",
+				"filepath":"/var/log/tomcat8/localhost_access_log.2017-01-13.txt"
+			}
+		   ],
+	"server_port":10000
+}
