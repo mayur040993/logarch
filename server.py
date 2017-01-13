@@ -6,6 +6,7 @@ server_address = ('localhost', 10000)
 print >>sys.stderr, 'starting up on %s port %s' % server_address
 sock.bind(server_address)
 sock.listen(5)
+##code
 
 def processingdata(data):
     return data.split(' ')
