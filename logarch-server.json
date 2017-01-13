@@ -1,4 +1,5 @@
 {
 	"server_hostname":"localhost",
-	"server_port":"8192"
+	"server_port":8192,
+	"logger_file":""
 }
