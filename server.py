@@ -9,6 +9,7 @@ def create_socket(server_hostname, server_port):
 	sock.bind(server_address)
 	sock.listen(5)
 
+
 def processingdata(data):
     return data.split(' ')
 
