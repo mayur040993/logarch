@@ -43,7 +43,7 @@ class get_connection(threading.Thread):
    
 
 def read_from_file():
-    with open('logpy.json') as data_file:    
+    with open('logarch.json') as data_file:    
     	data = json.load(data_file)
     return data
 
