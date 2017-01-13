@@ -28,7 +28,7 @@ class ManageSocket():
 		sock.listen(5)
 		self.sock=sock
 
-	def multipleclients(self,connection):
+	def multipleclients(self,connection,client_address):
 		try:
 		    print >>sys.stderr, 'client connected:', client_address
 		    while True:
@@ -46,7 +46,7 @@ class ManageSocket():
 		while True:
 		    print >>sys.stderr, 'waiting for a connection'
 		    connection, client_address = self.sock.accept()
-		    thread.start_new_thread(self.multipleclients,(connection,))
+		    thread.start_new_thread(self.multipleclients,(connection,client_address))
 		self.sock.close()
 
 if __name__=="__main__":
