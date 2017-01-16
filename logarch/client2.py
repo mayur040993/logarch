@@ -3,6 +3,10 @@ import sys
 import sh
 import json
 import threading
+import logging
+
+logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p',filename='example.log',level=logging.DEBUG)
+
 
 server_port=8192
 hostname=socket.gethostname()
@@ -26,16 +30,17 @@ class get_connection(threading.Thread):
         return logs
 
     def run(self):
-        print self.logfile
-	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	server_address = (self.server_hostname,self.server_port)
-	print >>sys.stderr, 'connecting to %s server_port %s' % server_address
-	sock.connect(server_address)
+        logging.debug(self.logfile)
+	    sock=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    	server_address = (self.server_hostname,self.server_port)
+	    logging.debug(sys.stderr, 'connecting to %s server_port %s' % server_address)
+	    sock.connect(server_address)
 	try:
-           for line in sh.tail("-f",self.logfile["filepath"], _iter=True):
-    	        logs=self.parsedata(self.logfile,line)
-                print logs
-                logs=json.dumps(logs)
+        for line in sh.tail("-f",self.logfile["filepath"], _iter=True):
+    	    logs=self.parsedata(self.logfile,line)
+            #print logs
+            logging.debug(logs)
+            logs=json.dumps(logs)
 		sock.sendall(logs)
 	finally:
     	   sock.close()
@@ -60,7 +65,7 @@ def creating_threads():
    	if "server_hostname" in data.keys():
            server_hostname=data["server_hostname"]
    except:
-        print "Server Hostname not found in logp.json file add server_hostname"
+        logging.debug("Server Hostname not found in logp.json file add server_hostname")
         sys.exit(1)
    if "hostname" in data.keys():
       hostname=data["hostname"]
@@ -70,7 +75,7 @@ def creating_threads():
    
    threads = []
    for logfile in data["logfiles"]:
-       print logfile
+       logging.debug(logfile)
        thread=get_connection(logfile,server_hostname,server_port,hostname)
        thread.start()
        threads.append(thread)
