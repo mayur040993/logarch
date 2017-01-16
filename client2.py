@@ -3,10 +3,12 @@ import sys
 import sh
 import json
 import threading
+import logging
 #code
 server_port=8192
 hostname=socket.gethostname()
-
+handler = logging.FileHandler('hello.log')
+handler.setLevel(logging.INFO)
 class get_connection(threading.Thread):
 
     def __init__ (self,logfile,server_hostname,server_port,hostname):
@@ -60,7 +62,7 @@ def creating_threads():
    	if "server_hostname" in data.keys():
            server_hostname=data["server_hostname"]
    except:
-        print "Server Hostname not found in logp.json file add server_hostname"
+	logger.info("Server Hostname not found in logp.json file add server_hostname")
         sys.exit(1)
    if "hostname" in data.keys():
       hostname=data["hostname"]
@@ -70,7 +72,8 @@ def creating_threads():
    
    threads = []
    for logfile in data["logfiles"]:
-       print logfile
+       #print logfile
+       logger.info(logfile)	
        thread=get_connection(logfile,server_hostname,server_port,hostname)
        thread.start()
        threads.append(thread)
