@@ -6,10 +6,10 @@
 			"name":"nginx",
 			"filepath":"/var/log/nginx/access.log"
 			},
-			{
-			"name":"tomcat",
-			"filepath":"/var/log/tomcat8/localhost_access_log.2017-01-13.txt"
-			}
+		        {
+                        "name":"tomcat",
+                        "filepath":"/var/log/tomcat8/localhost_access_log.2017-02-03.txt"
+                        }
 		],
 	"server_port":8192,
 	"logger_file":""
