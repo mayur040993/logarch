@@ -58,11 +58,14 @@ class get_connection(threading.Thread):
         if connected:
             try:
                 for line in sh.tail("-f",self.logfile["filepath"], _iter=True):
-                    print self,"in self"
-                    time.sleep(2)
-                    while self.paused:
-                        print "paused"
-                        time.sleep(1)
+                    with self.pause_cond:
+                        print self.pause_cond
+                        print self.paused
+                        print self,"in self"
+                        time.sleep(2)
+                        while self.paused:
+                            print "paused"
+                            time.sleep(1)
                     logs=self.parsedata(self.logfile,line)
                     logs=json.dumps(logs)
                     sock.sendall(logs)
@@ -131,7 +134,7 @@ def pause_api():
 @app.route('/resume')
 def resume_api():
     if 'thread_id' in request.args:
-        thread_dict[str(request.args['thread_id'])].paused=False
+        thread_dict[str(request.args['thread_id'])].a
         return 'resume ' + request.args['thread_id']
 
 

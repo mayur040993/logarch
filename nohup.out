@@ -1,0 +1,12 @@
+starting up on localhost port 8192
+waiting for a connection
+starting up on localhost port 8192
+{u'server_hostname': u'localhost', u'logger_file': u'', u'server_port': 8192}
+Traceback (most recent call last):
+  File "logarch-server.py", line 59, in <module>
+    server_socket=ManageSocket(server_hostname=data['server_hostname'],server_port=data['server_port'])
+  File "logarch-server.py", line 27, in __init__
+    sock.bind(server_address)
+  File "/usr/lib/python2.7/socket.py", line 228, in meth
+    return getattr(self._sock,name)(*args)
+socket.error: [Errno 98] Address already in use
